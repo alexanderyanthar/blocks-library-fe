@@ -1,6 +1,8 @@
 import { notFound } from "next/navigation";
 import { getClient } from "@/lib/apollo-client";
 import { GET_PAGE_BY_SLUG } from "@/graphql/queries/GetPageBySlug";
+import BlockRenderer from "@/components/blocks/BlockRenderer";
+import type { Block } from "@/types/blocks";
 
 interface WPPageFull {
   id: string;
@@ -8,6 +10,7 @@ interface WPPageFull {
   slug: string;
   date: string;
   content: string;
+  editorBlocks: Block[];
 }
 
 interface GetPageBySlugData {
@@ -27,12 +30,9 @@ export default async function Page({ params }: PageProps) {
   });
 
   const page = data?.page;
+  if (!page) notFound();
 
-  if (!page) {
-    notFound();
-  }
-
-  const { title, date, content } = page;
+  const { title, date, editorBlocks, content } = page;
 
   return (
     <main className="max-w-2xl mx-auto py-16 px-6">
@@ -40,10 +40,11 @@ export default async function Page({ params }: PageProps) {
       <p className="text-sm text-zinc-500 mb-8">
         {new Date(date).toLocaleDateString()}
       </p>
-      <div
-        className="prose prose-zinc"
-        dangerouslySetInnerHTML={{ __html: content }}
-      />
+      {editorBlocks?.length > 0 ? (
+        <BlockRenderer blocks={editorBlocks} />
+      ) : (
+        <div dangerouslySetInnerHTML={{ __html: content }} />
+      )}
     </main>
   );
 }
