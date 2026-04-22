@@ -1,18 +1,13 @@
 import { gql } from "@apollo/client";
 
-export const GET_PAGE_BY_SLUG = gql`
-  query GetPageBySlug($slug: ID!) {
-    page(id: $slug, idType: URI) {
+export const GET_PROJECT_BY_SLUG = gql`
+  query GetProjectBySlug($slug: ID!) {
+    project(id: $slug, idType: SLUG) {
       id
       title
       slug
       date
       content
-      pageHero {
-        heroTitle
-        heroSubtitle
-        heroBackgroundColour
-      }
       editorBlocks {
         __typename
         name
@@ -27,14 +22,12 @@ export const GET_PAGE_BY_SLUG = gql`
             content
             level
             className
-            textAlign
           }
         }
         ... on CoreImage {
           attributes {
             url
             alt
-            className
             width
             height
           }
@@ -42,7 +35,6 @@ export const GET_PAGE_BY_SLUG = gql`
         ... on CoreList {
           attributes {
             ordered
-            className
           }
           innerBlocks {
             ... on CoreListItem {
