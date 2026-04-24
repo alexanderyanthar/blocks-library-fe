@@ -5,6 +5,7 @@ export interface BlockAttribute {
 export interface Block {
   __typename: string;
   name: string;
+  parentClientId?: string | null;
   attributes?: BlockAttribute;
   innerBlocks?: Block[];
 }

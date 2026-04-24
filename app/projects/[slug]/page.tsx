@@ -45,7 +45,7 @@ export default async function ProjectPage({ params }: PageProps) {
         {new Date(date).toLocaleDateString()}
       </p>
       {editorBlocks?.length > 0 ? (
-        <BlockRenderer blocks={editorBlocks} />
+        <BlockRenderer blocks={editorBlocks.filter((b) => b.parentClientId === null)} />
       ) : (
         <div dangerouslySetInnerHTML={{ __html: content }} />
       )}

@@ -4,6 +4,7 @@ import CoreParagraph from "./CoreParagraph";
 import CoreHeading from "./CoreHeading";
 import CoreImage from "./CoreImage";
 import CoreList from "./CoreList";
+import BlocksLibraryAccordion from "./BlocksLibraryAccordion";
 import FallbackBlock from "./FallbackBlock";
 
 const blockMap: Record<string, ComponentType<BlockProps>> = {
@@ -11,6 +12,7 @@ const blockMap: Record<string, ComponentType<BlockProps>> = {
   "core/heading": CoreHeading,
   "core/image": CoreImage,
   "core/list": CoreList,
+  "blocks-library/accordion": BlocksLibraryAccordion,
 };
 
 interface BlockRendererProps {

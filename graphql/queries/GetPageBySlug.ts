@@ -16,6 +16,7 @@ export const GET_PAGE_BY_SLUG = gql`
       editorBlocks {
         __typename
         name
+        parentClientId
         ... on CoreParagraph {
           attributes {
             content
@@ -48,6 +49,35 @@ export const GET_PAGE_BY_SLUG = gql`
             ... on CoreListItem {
               attributes {
                 content
+              }
+            }
+          }
+        }
+        ... on BlocksLibraryAccordion {
+          attributes {
+            title
+            initiallyOpen
+          }
+          innerBlocks {
+            __typename
+            name
+            ... on CoreParagraph {
+              attributes {
+                content
+              }
+            }
+            ... on CoreHeading {
+              attributes {
+                content
+                level
+              }
+            }
+            ... on CoreImage {
+              attributes {
+                url
+                alt
+                width
+                height
               }
             }
           }
